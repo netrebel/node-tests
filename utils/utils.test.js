@@ -2,50 +2,55 @@ const expect = require('expect');
 
 const utils = require('./utils');
 
-it('should add two numbers', () => {
-  var res = utils.add(33, 11);
+describe('Utils', () => {
 
-  expect(res).toBe(44).toBeA('number');
-});
+  describe('#add', () => {
+    it('should add two numbers', () => {
+      var res = utils.add(33, 11);
 
-it('should asyncAdd two numbers', (done) => {
-  utils.asyncAdd(4, 3, (sum) => {
-    expect(sum).toBe(7).toBeA('number');
-    done();
+      expect(res).toBe(44).toBeA('number');
+    });
+
+    it('should asyncAdd two numbers', (done) => {
+      utils.asyncAdd(4, 3, (sum) => {
+        expect(sum).toBe(7).toBeA('number');
+        done();
+      });
+    });
   });
-});
 
-it('should square number', () => {
-  var res = utils.square(2);
+  it('should square number', () => {
+    var res = utils.square(2);
 
-  expect(res).toBe(4).toBeA('number');
-});
-
-it('should expect some values', () => {
-  // expect(12).toNotBe(11);
-  expect({name: 'Andrew'}).toEqual({name: 'Andrew'});
-  expect({name: 'andrew'}).toNotEqual({name: 'Andrew'});
-
-  expect([2,3,4]).toInclude(2);
-  expect([2,3,4]).toExclude(1);
-
-  expect({
-    name : 'Miguel',
-    age : '37',
-    location: 'Boston'
-  }).toInclude({
-    age : '37'
+    expect(res).toBe(4).toBeA('number');
   });
-});
 
-it('should verify first and last name are set', () => {
+  it('should expect some values', () => {
+    // expect(12).toNotBe(11);
+    expect({name: 'Andrew'}).toEqual({name: 'Andrew'});
+    expect({name: 'andrew'}).toNotEqual({name: 'Andrew'});
 
-  var user = {
-    location : 'Boston',
-    age : '37'
-  };
+    expect([2,3,4]).toInclude(2);
+    expect([2,3,4]).toExclude(1);
 
-  var res = utils.setName(user, 'Miguel Reyes');
+    expect({
+      name : 'Miguel',
+      age : '37',
+      location: 'Boston'
+    }).toInclude({
+      age : '37'
+    });
+  });
 
-  expect(user).toBeA(Object).toInclude({ firstName: 'Miguel', lastName : 'Reyes'});
+  it('should verify first and last name are set', () => {
+
+    var user = {
+      location : 'Boston',
+      age : '37'
+    };
+
+    var res = utils.setName(user, 'Miguel Reyes');
+
+    expect(user).toBeA(Object).toInclude({ firstName: 'Miguel', lastName : 'Reyes'});
+  });
 });
