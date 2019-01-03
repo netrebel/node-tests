@@ -1,4 +1,5 @@
-const expect = require('expect');
+const chai = require('chai');
+const expect = chai.expect;
 
 const utils = require('./utils');
 
@@ -8,12 +9,14 @@ describe('Utils', () => {
     it('should add two numbers', () => {
       var res = utils.add(33, 11);
 
-      expect(res).toBe(44).toBeA('number');
+      expect(res).to.be.a('number');
+      expect(res).to.equal(44);
     });
 
     it('should asyncAdd two numbers', (done) => {
       utils.asyncAdd(4, 3, (sum) => {
-        expect(sum).toBe(7).toBeA('number');
+        expect(sum).to.equal(7);
+        expect(sum).to.be.a('number');
         done();
       });
     });
@@ -22,35 +25,34 @@ describe('Utils', () => {
   it('should square number', () => {
     var res = utils.square(2);
 
-    expect(res).toBe(4).toBeA('number');
+    expect(res).to.equal(4);
+    expect(res).to.be.a('number');
   });
 
   it('should expect some values', () => {
     // expect(12).toNotBe(11);
-    expect({name: 'Andrew'}).toEqual({name: 'Andrew'});
-    expect({name: 'andrew'}).toNotEqual({name: 'Andrew'});
+    expect({ name: 'Andrew' }).to.have.property('name', 'Andrew');
+    expect({ name: 'andrew' }).to.not.have.property('name', 'Andrew');
 
-    expect([2,3,4]).toInclude(2);
-    expect([2,3,4]).toExclude(1);
+    expect([2, 3, 4]).to.include(2);
+    expect([2, 3, 4]).to.not.include(1);
 
     expect({
-      name : 'Miguel',
-      age : '37',
+      name: 'Miguel',
+      age: '37',
       location: 'Boston'
-    }).toInclude({
-      age : '37'
-    });
+    }).to.have.property('age', '37');
   });
 
   it('should verify first and last name are set', () => {
 
     var user = {
-      location : 'Boston',
-      age : '37'
+      location: 'Boston',
+      age: '37'
     };
-
     var res = utils.setName(user, 'Miguel Reyes');
 
-    expect(user).toBeA(Object).toInclude({ firstName: 'Miguel', lastName : 'Reyes'});
+    expect(res).to.be.a('Object');
+    expect(res).to.have.property('firstName', 'Miguel');
   });
 });
