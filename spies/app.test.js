@@ -7,7 +7,8 @@ var app = rewire('./app');
 
 describe('App', () => {
   var db = {
-    saveUser: sinon.spy()
+    saveUser: sinon.spy(),
+    getUser: sinon.stub().returns({email : "hello@example.com", password: "1234567"})
   };
   app.__set__('db', db);
 
@@ -15,8 +16,11 @@ describe('App', () => {
     var email = "miguel@example.com";
     var password = "123abc";
 
-    app.handleSignup(email, password);
+    let user = app.handleSignup(email, password);
     expect(db.saveUser.callCount).to.equal(1);
     expect(db.saveUser.calledWith({email, password})).to.be.true;
+    expect(db.getUser.callCount).to.equal(1);
+    expect(user).to.deep.equal({email : "hello@example.com", password: "1234567"});
   });
+
 });

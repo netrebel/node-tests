@@ -5,6 +5,7 @@ module.exports.handleSignup = (email, password) => {
 
   //Save the user to the db
   db.saveUser({ email, password});
+  return db.getUser(email);
 
   //Send welcome email
 };
